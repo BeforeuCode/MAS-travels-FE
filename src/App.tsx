@@ -1,25 +1,34 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import styled from '@emotion/styled';
+import { BrowserRouter } from 'react-router-dom';
+import { Home } from './Routes/Home/Home';
+import { GlobalProviders } from './GlobalProviders';
+
+const MainScene = styled.div`
+  display: flex;
+  height: 100%;
+`;
+
+const MainContainer = styled.div`
+  font-size: 1.4rem;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+`;
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <GlobalProviders>
+      <BrowserRouter>
+        <MainScene>
+          <MainContainer>
+            <Home />
+          </MainContainer>
+        </MainScene>
+      </BrowserRouter>
+    </GlobalProviders>
   );
 }
 
