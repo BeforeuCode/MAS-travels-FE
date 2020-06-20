@@ -51,6 +51,14 @@ const SaveButton = styled(Button)`
   }
 `;
 
+interface IStyledDialogProps {
+  width?: string;
+}
+
+const StyledDialog = styled(Dialog)<IStyledDialogProps>`
+  width: ${({ width }) => `${width}`};
+`;
+
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -60,8 +68,9 @@ const Wrapper = styled.div`
 export const useStyles = makeStyles(() =>
   createStyles({
     paper: {
-      width: '70rem',
+      minWidth: '70rem',
       height: '80%',
+      maxWidth: '80%',
       backgroundColor: '#F8F9FC',
     },
   })
@@ -72,6 +81,7 @@ export interface IDialogProps extends ICommonProps {
   onSaveDisabled?: boolean;
   onClose: () => void;
   onSubmit?: () => void;
+  width?: string;
 }
 
 export const CustomDialog: FC<IDialogProps> = ({
@@ -84,7 +94,7 @@ export const CustomDialog: FC<IDialogProps> = ({
 }) => {
   const classes = useStyles();
   return (
-    <Dialog
+    <StyledDialog
       open={open}
       onClose={onClose}
       classes={{ paper: classes.paper }}
@@ -107,6 +117,6 @@ export const CustomDialog: FC<IDialogProps> = ({
           </ButtonSection>
         )}
       </Wrapper>
-    </Dialog>
+    </StyledDialog>
   );
 };

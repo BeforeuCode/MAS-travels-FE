@@ -1,13 +1,13 @@
 import { FC, useState } from 'react';
-import { CustomDialog } from '../../../../Components/CustomDialog';
-import { prepareRequiredFieldsValidation } from '../../../../Components/Forms/utils';
+import { CustomDialog } from '../../../../../Components/CustomDialog';
+import { prepareRequiredFieldsValidation } from '../../../../../Components/Forms/utils';
 import { useFormik } from 'formik';
 import styled from '@emotion/styled';
 import React from 'react';
-import { InputSection } from '../../../../Components/Forms/InputSection';
-import { ITravelForm } from '../../../../../../Types/travel';
-import { SelectSection } from '../../../../Components/Forms/SelectSection';
-import { FieldErrorMessage } from '../../../../Components/Forms/FieldErrorMessage';
+import { InputSection } from '../../../../../Components/Forms/InputSection';
+import { ITravelForm } from '../../../../../../../Types/travel';
+import { SelectSection } from '../../../../../Components/Forms/SelectSection';
+import { FieldErrorMessage } from '../../../../../Components/Forms/FieldErrorMessage';
 
 const FormWrapper = styled.form`
   display: flex;
@@ -19,6 +19,12 @@ const FormWrapper = styled.form`
 `;
 
 const Inputs = styled.div``;
+
+const StyledInputSection = styled(InputSection)`
+  && {
+    padding-bottom: 0;
+  }
+`;
 
 interface IProps {
   open: boolean;
@@ -235,6 +241,33 @@ export const AddNewTravelDialog: FC<IProps> = ({ open, onClose, onSubmit }) => {
               )}
             </>
           )}
+          <StyledInputSection
+            multiline
+            rows={5}
+            rowsMax={10}
+            title={'Information'}
+            placeholder={'Information'}
+            fieldName={'information'}
+            handleChange={formik.handleChange}
+          />
+          <StyledInputSection
+            multiline
+            rows={5}
+            rowsMax={10}
+            title={'Restrictions'}
+            placeholder={'Restrictions'}
+            fieldName={'restrictions'}
+            handleChange={formik.handleChange}
+          />
+          <StyledInputSection
+            multiline
+            rows={5}
+            rowsMax={10}
+            title={'Comments'}
+            placeholder={'Comments'}
+            fieldName={'comments'}
+            handleChange={formik.handleChange}
+          />
         </Inputs>
       </FormWrapper>
     </CustomDialog>

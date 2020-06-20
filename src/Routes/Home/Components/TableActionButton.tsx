@@ -3,8 +3,9 @@ import styled from '@emotion/styled';
 import { Button } from '@material-ui/core';
 
 interface IProps {
-  travelId: number;
-  onEditTravelInformationDialog: (id: number) => void;
+  id: number;
+  label: string;
+  onAction: (id: number) => void;
 }
 
 const StyledButton = styled(Button)`
@@ -13,22 +14,20 @@ const StyledButton = styled(Button)`
   }
 `;
 
-export const EditTravelInformationButton: FC<IProps> = ({
-  travelId,
-  onEditTravelInformationDialog,
-}) => {
+export const TableActionButton: FC<IProps> = ({ id, onAction, label }) => {
   const openEditTravelInformation = () => {
-    onEditTravelInformationDialog(travelId);
+    onAction(id);
   };
 
   return (
     <>
       <StyledButton
+        color="primary"
         size="small"
         onClick={openEditTravelInformation}
         variant={'outlined'}
       >
-        Edit Information Card
+        {label}
       </StyledButton>
     </>
   );

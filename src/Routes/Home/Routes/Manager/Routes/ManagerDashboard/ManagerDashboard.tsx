@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import React, { FC } from 'react';
-import { TravelsTable } from './ManagerDashboardTravelsTable';
+import { ManagerDashboardTravelsTable } from './Travels/ManagerDashboardTravelsTable';
+import { ManagerDashboardClientsTable } from './Clients/ManagerDashboardClientsTable';
 
 const Wrapper = styled.div`
   width: 80%;
@@ -10,7 +11,8 @@ const Wrapper = styled.div`
 export const ManagerDashboard: FC = () => {
   return (
     <Wrapper>
-      <TravelsTable />
+      <ManagerDashboardClientsTable />
+      <ManagerDashboardTravelsTable />
     </Wrapper>
   );
 };
