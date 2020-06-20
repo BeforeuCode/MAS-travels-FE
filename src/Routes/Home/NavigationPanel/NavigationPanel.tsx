@@ -7,6 +7,7 @@ import { useLocation } from 'react-router-dom';
 import { Logo } from './Logo/Logo';
 import { MenuIconButton } from './MenuIconButton';
 import { DashboardIcon } from './Icons/DashboardIcon';
+import { Campaigns } from './Campaigns';
 
 const navigationPanelStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -49,6 +50,13 @@ const MenuDivider = styled(Divider)`
   }
 `;
 
+const Buttons = styled.div`
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+`;
+
 export const NavigationPanel: FC = () => {
   const classes = navigationPanelStyles();
 
@@ -72,13 +80,16 @@ export const NavigationPanel: FC = () => {
         <Logo isExtended={isOpen} />
         <MenuDivider />
         <MenuIconButton
-          isFocused={isActive('/home/travels')}
+          isFocused={isActive('/home/public/travels')}
           isExtended={isOpen}
           label={'Travels'}
-          linkPath={'/home/travels'}
+          linkPath={'/home/public/travels'}
         >
-          <DashboardIcon isFocused={isActive('/home/travels')} />
+          <DashboardIcon isFocused={isActive('/home/public/travels')} />
         </MenuIconButton>
+        <Buttons>
+          <Campaigns isExtended={isOpen} />
+        </Buttons>
       </Drawer>
       <PanelSwitcher isExtended={isOpen} onClick={handleDrawerOpen} />
     </Wrapper>
