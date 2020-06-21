@@ -43,6 +43,9 @@ export const AddNewTravelDialog: FC<IProps> = ({ open, onClose, onSubmit }) => {
     country: '',
     conveyance: '',
     city: '',
+    comments: '',
+    information: '',
+    restrictions: '',
   };
   const REQUIRED_FIELDS = ['title', 'theme', 'type', 'price', 'rate'];
 

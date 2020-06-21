@@ -25,5 +25,7 @@ export interface ITravelForm {
   country?: string;
   conveyance?: string;
   city?: string;
-  informationCard?: IInformationCard;
+  comments: string;
+  information: string;
+  restrictions: string;
 }

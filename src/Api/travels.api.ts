@@ -1,6 +1,7 @@
 import { IInformationCard, ITravel, ITravelForm } from '../Types/travel';
 import { travelsApi } from './api';
 import { IClient, IClientForm } from '../Types/client';
+import { IEmployee, IEmployeeForm } from '../Types/employee';
 
 export const getTravels = (): Promise<ITravel[]> => {
   return travelsApi.get(`public/travel`).json();
@@ -12,7 +13,21 @@ export const getClientTravels = (clientId: number): Promise<ITravel[]> => {
 
 export const addTravel = (form: ITravelForm): Promise<any> => {
   return travelsApi.post(`manager/travel`, {
-    json: form,
+    json: {
+      title: form.title,
+      theme: form.theme,
+      type: form.type,
+      price: form.price,
+      rate: form.rate,
+      country: form.country,
+      conveyance: form.conveyance,
+      city: form.city,
+      informationCard: {
+        comments: form.comments,
+        information: form.information,
+        restrictions: form.restrictions,
+      },
+    },
   });
 };
 
@@ -52,4 +67,16 @@ export const getInformationCard = (
   travelId: number
 ): Promise<IInformationCard> => {
   return travelsApi.get(`manager/travel/informationCard/${travelId}`).json();
+};
+
+export const getEmployees = (): Promise<IEmployee[]> => {
+  return travelsApi.get(`admin/employee`).json();
+};
+
+export const deleteEmployee = (employeeId: number): Promise<any> => {
+  return travelsApi.delete(`admin/employee/delete/${employeeId}`);
+};
+
+export const addEmployee = (form: IEmployeeForm): Promise<any> => {
+  return travelsApi.post(`admin/employee`, { json: { ...form } }).json();
 };

@@ -4,6 +4,7 @@ import { NavigationPanel } from './NavigationPanel/NavigationPanel';
 import { Route } from 'react-router-dom';
 import { Public } from './Routes/Public/Public';
 import { Manager } from './Routes/Manager/Manager';
+import { Admin } from './Routes/Admin/Admin';
 
 const HomeBody = styled.div`
   height: 100%;
@@ -21,7 +22,9 @@ export const Home: FC = () => {
       <Route path="/home/manager">
         <Manager />
       </Route>
-      <Route path="/home/admin">{/*<Admin />*/}</Route>
+      <Route path="/home/admin">
+        <Admin />
+      </Route>
     </HomeBody>
   );
 };
