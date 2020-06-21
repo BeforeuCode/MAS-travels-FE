@@ -12,7 +12,13 @@ import { ITravel } from '../../../../../../Types/travel';
 
 const Wrapper = styled.div`
   width: 80%;
-  margin: auto;
+  margin: auto auto 4rem;
+`;
+
+const StyledActionButton = styled(Button)`
+  && {
+    margin-left: auto;
+  }
 `;
 
 const StyledCardContent = styled(CardContent)`
@@ -40,7 +46,7 @@ interface IProps {
   travel: ITravel;
 }
 
-export const TravelCard: FC<IProps> = () => {
+export const TravelCard: FC<IProps> = ({ travel }) => {
   const [expanded, setExpanded] = React.useState(false);
 
   const handleExpandClick = () => {
@@ -53,70 +59,82 @@ export const TravelCard: FC<IProps> = () => {
         <StyledCardContent>
           <StyledCardHeader>
             <Typography gutterBottom variant="h5" component="h2">
-              Trip to Italy
+              {travel.title}
             </Typography>
             <Typography gutterBottom variant="h5" component="h2">
-              1500zł
+              {`${travel.price}€`}
             </Typography>
           </StyledCardHeader>
           <StyledCardBody>
             <Typography variant="body2" color="textSecondary" component="p">
-              Theme: Recreation
+              Theme: {travel.theme}
             </Typography>
             <Typography gutterBottom variant="h5" component="h2">
-              <span role="img" aria-label="rate">
-                ⭐⭐⭐
-              </span>
+              {[...Array(travel.rate)].map((e, i) => (
+                <span role="img" aria-label="rate" key={i}>
+                  ⭐
+                </span>
+              ))}
             </Typography>
           </StyledCardBody>
           <StyledCardBody>
-            <Typography variant="body2" color="textSecondary" component="p">
-              Country: Italy
-            </Typography>
-            <Typography variant="body2" color="textSecondary" component="p">
-              Conveyance: Airplane
-            </Typography>
+            {travel.country && (
+              <Typography variant="body2" color="textSecondary" component="p">
+                Country: {travel.country}
+              </Typography>
+            )}
+            {travel.conveyance && (
+              <Typography variant="body2" color="textSecondary" component="p">
+                Conveyance: {travel.conveyance}
+              </Typography>
+            )}
+            {travel.city && (
+              <Typography variant="body2" color="textSecondary" component="p">
+                City: {travel.city}
+              </Typography>
+            )}
           </StyledCardBody>
         </StyledCardContent>
         <StyledCardActions>
-          <Button size="small" color="primary" onClick={handleExpandClick}>
-            Information Card
-          </Button>
-          <Button size="small" color="primary">
+          {travel.informationCard && (
+            <Button size="small" color="primary" onClick={handleExpandClick}>
+              Information Card
+            </Button>
+          )}
+          <StyledActionButton size="small" color="primary">
             Ask For Contact
-          </Button>
+          </StyledActionButton>
         </StyledCardActions>
-        <Collapse in={expanded} timeout="auto" unmountOnExit>
-          <CardContent>
-            <Typography paragraph>
-              <Typography gutterBottom variant="h5" component="h2">
-                Information
-              </Typography>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-              Cupiditate dolor excepturi minus nobis numquam pariatur porro
-              provident rem! Architecto delectus deleniti eius eos harum id
-              nemo, numquam provident quibusdam reiciendis?
-            </Typography>
-            <Typography paragraph>
-              <Typography gutterBottom variant="h5" component="h2">
-                Comments
-              </Typography>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-              Cupiditate dolor excepturi minus nobis numquam pariatur porro
-              provident rem! Architecto delectus deleniti eius eos harum id
-              nemo, numquam provident quibusdam reiciendis?
-            </Typography>
-            <Typography paragraph>
-              <Typography gutterBottom variant="h5" component="h2">
-                Restrictions
-              </Typography>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-              Cupiditate dolor excepturi minus nobis numquam pariatur porro
-              provident rem! Architecto delectus deleniti eius eos harum id
-              nemo, numquam provident quibusdam reiciendis?
-            </Typography>
-          </CardContent>
-        </Collapse>
+        {travel.informationCard && (
+          <Collapse in={expanded} timeout="auto" unmountOnExit>
+            <CardContent>
+              {travel.informationCard.information && (
+                <Typography paragraph>
+                  <Typography gutterBottom variant="h5" component="h2">
+                    Information
+                  </Typography>
+                  {travel.informationCard.information}
+                </Typography>
+              )}
+              {travel.informationCard.comments && (
+                <Typography paragraph>
+                  <Typography gutterBottom variant="h5" component="h2">
+                    Comments
+                  </Typography>
+                  {travel.informationCard.comments}
+                </Typography>
+              )}
+              {travel.informationCard.restrictions && (
+                <Typography paragraph>
+                  <Typography gutterBottom variant="h5" component="h2">
+                    Restrictions
+                  </Typography>
+                  {travel.informationCard.restrictions}
+                </Typography>
+              )}
+            </CardContent>
+          </Collapse>
+        )}
       </Card>
     </Wrapper>
   );

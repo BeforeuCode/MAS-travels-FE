@@ -2,7 +2,11 @@ import React, { FC, useEffect, useMemo, useState } from 'react';
 
 import { createClientsTableConfig } from '../utils';
 import { Button } from '@material-ui/core';
-import { addClient, getClients } from '../../../../../../../Api/travels.api';
+import {
+  addClient,
+  deleteClient,
+  getClients,
+} from '../../../../../../../Api/travels.api';
 import { CellConfig, CustomTable } from '../../../../../Components/CustomTable';
 import styled from '@emotion/styled';
 import { TableToolbar } from '../../../../../Components/TableToolbar';
@@ -48,7 +52,9 @@ export const ManagerDashboardClientsTable: FC = () => {
   };
 
   const openRemoveClientDialog = (clientId: number) => {
-    console.log(clientId);
+    deleteClient(clientId).then(() => {
+      fetchClients();
+    });
   };
 
   const travelsTableConfig = useMemo(() => {

@@ -1,4 +1,4 @@
-import { ITravel, ITravelForm } from '../Types/travel';
+import { IInformationCard, ITravel, ITravelForm } from '../Types/travel';
 import { travelsApi } from './api';
 import { IClient, IClientForm } from '../Types/client';
 
@@ -20,6 +20,10 @@ export const getClients = (): Promise<IClient[]> => {
   return travelsApi.get(`manager/client`).json();
 };
 
+export const deleteClient = (clientId: number): Promise<any> => {
+  return travelsApi.delete(`manager/client/delete/${clientId}`);
+};
+
 export const addClient = (form: IClientForm): Promise<IClient[]> => {
   return travelsApi.post(`manager/client`, { json: form }).json();
 };
@@ -33,4 +37,19 @@ export const assignTravelToClient = (
 
 export const deleteTravel = (travelId: number): Promise<any> => {
   return travelsApi.delete(`manager/travel/delete/${travelId}`);
+};
+
+export const editInformationCard = (
+  form: IInformationCard,
+  travelId: number
+): Promise<any> => {
+  return travelsApi.put(`manager/travel/informationCard/${travelId}`, {
+    json: form,
+  });
+};
+
+export const getInformationCard = (
+  travelId: number
+): Promise<IInformationCard> => {
+  return travelsApi.get(`manager/travel/informationCard/${travelId}`).json();
 };

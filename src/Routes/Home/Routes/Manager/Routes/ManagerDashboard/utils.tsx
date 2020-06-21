@@ -55,12 +55,12 @@ export const createTravelsTableConfig = (
           <ActionButtonsWrapper>
             <TableActionButton
               id={values.id}
-              label={'Edit Information Card'}
+              label={'Edit Info'}
               onAction={openDialog}
             />
             <TableActionButton
               id={values.id}
-              label={'Remove travel'}
+              label={'Remove'}
               onAction={removeTravel}
             />
           </ActionButtonsWrapper>

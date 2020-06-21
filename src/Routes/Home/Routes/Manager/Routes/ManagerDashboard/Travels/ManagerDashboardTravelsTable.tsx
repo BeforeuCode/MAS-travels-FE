@@ -5,13 +5,15 @@ import { Button } from '@material-ui/core';
 import {
   addTravel,
   deleteTravel,
+  editInformationCard,
   getTravels,
 } from '../../../../../../../Api/travels.api';
-import { ITravel } from '../../../../../../../Types/travel';
+import { IInformationCard, ITravel } from '../../../../../../../Types/travel';
 import { CellConfig, CustomTable } from '../../../../../Components/CustomTable';
 import styled from '@emotion/styled';
 import { TableToolbar } from '../../../../../Components/TableToolbar';
 import { AddNewTravelDialog } from './AddNewTravelDialog';
+import { EditInformationCardDialog } from './EditInformationCardDialog';
 
 const StyledTable = styled(CustomTable)`
   && {
@@ -30,6 +32,13 @@ const StyledButton = styled(Button)`
 export const ManagerDashboardTravelsTable: FC = () => {
   const [travels, setTravels] = useState<ITravel[]>([]);
   const [addDialogOpen, setAddDialogOpen] = useState(false);
+  const [
+    editInformationDialogTravelId,
+    setEditInformationDialogTravelId,
+  ] = useState();
+  const [editInformationDialogOpen, setEditInformationDialogOpen] = useState(
+    false
+  );
 
   const fetchTravels = () => {
     getTravels().then((travels) => {
@@ -39,8 +48,10 @@ export const ManagerDashboardTravelsTable: FC = () => {
   };
 
   const openTravelInformationEdit = (travelId: number) => {
-    console.log(travelId);
+    setEditInformationDialogTravelId(travelId);
+    setEditInformationDialogOpen(true);
   };
+
   const removeTravel = (travelId: number) => {
     deleteTravel(travelId)
       .then(() => {
@@ -70,10 +81,27 @@ export const ManagerDashboardTravelsTable: FC = () => {
   const handleClose = () => {
     setAddDialogOpen(false);
   };
+
+  const handleEditInformationClose = () => {
+    setEditInformationDialogOpen(false);
+  };
+
   const handleSubmit = (form: any) => {
     return addTravel(form)
       .then(fetchTravels)
       .then(() => setAddDialogOpen(false));
+  };
+
+  const handleEditInformationSubmit = (
+    form: IInformationCard,
+    travelId: number
+  ) => {
+    return editInformationCard(form, travelId)
+      .then(fetchTravels)
+      .then(() => setEditInformationDialogOpen(false))
+      .catch((e) => {
+        console.log(e);
+      });
   };
 
   return (
@@ -95,6 +123,12 @@ export const ManagerDashboardTravelsTable: FC = () => {
         open={addDialogOpen}
         onClose={handleClose}
         onSubmit={handleSubmit}
+      />
+      <EditInformationCardDialog
+        open={editInformationDialogOpen}
+        onClose={handleEditInformationClose}
+        onSubmit={handleEditInformationSubmit}
+        travelId={editInformationDialogTravelId}
       />
     </>
   );
